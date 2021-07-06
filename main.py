@@ -15,5 +15,4 @@ if __name__ == '__main__':
 
     accounts = accountRepository.findAccounts()
 
-    items_df = DataFrame(accounts)
-    print(items_df)
+    print(DataFrame(accounts))
