@@ -1,16 +1,11 @@
 class AccountRepository(object):
-    __mongoDbClient = None
-    __databaseName = "sample_analytics"
+    __sampleAnalyticsDataStore = None
     __collectionName = "accounts"
 
     def __init__(self, connectionString):
-        self.__mongoDbClient = self.__buildMongoDbClient(connectionString)
-
-    def __buildMongoDbClient(self, connectionString):
-        from pymongo import MongoClient
-        client = MongoClient(connectionString)
-        return client[self.__databaseName]
+        from persistence.sample_analytics_datastore import SampleAnalyticsDataStore
+        self.__sampleAnalyticsDataStore = SampleAnalyticsDataStore(connectionString)
 
     def findAccounts(self):
-        accounts = self.__mongoDbClient[self.__collectionName]
+        accounts = self.__sampleAnalyticsDataStore.getCollection(self.__collectionName)
         return accounts.find()
